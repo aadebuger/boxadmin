@@ -7,10 +7,10 @@ Vue.use(Router)
 import Layout from '@/layout'
 
 /* Router Modules */
-import componentsRouter from './modules/components'
-import chartsRouter from './modules/charts'
-import tableRouter from './modules/table'
-import nestedRouter from './modules/nested'
+// import componentsRouter from './modules/components'
+// import chartsRouter from './modules/charts'
+// import tableRouter from './modules/table'
+// import nestedRouter from './modules/nested'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -78,11 +78,12 @@ export const constantRoutes = [
       {
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
-        name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+        name: 'dashboard',
+        meta: { title: '管理台', icon: 'dashboard', affix: true }
       }
     ]
   },
+  /**
   {
     path: '/documentation',
     component: Layout,
@@ -95,6 +96,7 @@ export const constantRoutes = [
       }
     ]
   },
+
   {
     path: '/guide',
     component: Layout,
@@ -108,6 +110,7 @@ export const constantRoutes = [
       }
     ]
   },
+  **/
   {
     path: '/profile',
     component: Layout,
@@ -170,7 +173,7 @@ export const asyncRoutes = [
       }
     ]
   },
-
+  /**
   {
     path: '/icon',
     component: Layout,
@@ -183,13 +186,13 @@ export const asyncRoutes = [
       }
     ]
   },
-
+  **/
   /** when your routing map is too long, you can split it into small modules **/
-  componentsRouter,
-  chartsRouter,
-  nestedRouter,
-  tableRouter,
-
+  // componentsRouter,
+  // chartsRouter,
+  // nestedRouter,
+  // tableRouter,
+  /**
   {
     path: '/example',
     component: Layout,
@@ -221,7 +224,101 @@ export const asyncRoutes = [
       }
     ]
   },
-
+  **/
+  {
+    path: '/lesson',
+    component: Layout,
+    redirect: '/lesson/list',
+    name: 'Lesson',
+    meta: {
+      title: '课程',
+      icon: 'el-icon-s-help'
+    },
+    children: [
+      {
+        path: 'create',
+        component: () => import('@/views/lesson/newlesson'),
+        name: '新课程',
+        meta: { title: '新课程', icon: 'edit' }
+      },
+      {
+        path: 'edit/:id(\\d+)',
+        component: () => import('@/views/lesson/edit'),
+        name: 'EditArticle',
+        meta: { title: 'Edit Article', noCache: true, activeMenu: '/example/list' },
+        hidden: true
+      },
+      {
+        path: 'list',
+        component: () => import('@/views/lesson/lessons'),
+        name: 'ArticleList',
+        meta: { title: '课程列表', icon: 'list' }
+      }
+    ]
+  },
+  {
+    path: '/student',
+    component: Layout,
+    redirect: '/student/list',
+    name: 'Student',
+    meta: {
+      title: '人员',
+      icon: 'el-icon-s-help'
+    },
+    children: [
+      {
+        path: 'create',
+        component: () => import('@/views/student/newstudent'),
+        name: '新课程',
+        meta: { title: '新学员', icon: 'edit' }
+      },
+      {
+        path: 'edit/:id(\\d+)',
+        component: () => import('@/views/student/edit'),
+        name: 'EditArticle',
+        meta: { title: 'Edit Article', noCache: true, activeMenu: '/example/list' },
+        hidden: true
+      },
+      {
+        path: 'list',
+        component: () => import('@/views/student/students'),
+        name: 'ArticleList',
+        meta: { title: '员工列表', icon: 'list' }
+      }
+    ]
+  },
+  {
+    path: '/android',
+    component: Layout,
+    redirect: '/android/list',
+    name: 'Student',
+    meta: {
+      title: '手机',
+      icon: 'el-icon-s-help'
+    },
+    children: [
+      {
+        path: 'new',
+        component: () => import('@/views/android/androidnew'),
+        name: '新课程',
+        meta: { title: '手机型号', icon: 'edit' }
+      },
+      {
+        path: 'edit/:id(\\d+)',
+        component: () => import('@/views/student/edit'),
+        name: 'EditArticle',
+        meta: { title: 'Edit Article', noCache: true, activeMenu: '/example/list' },
+        hidden: true
+      },
+      {
+        path: 'list',
+        component: () => import('@/views/android/androiddevice'),
+        name: 'ArticleList',
+        meta: { title: '柜子手机列表', icon: 'list' }
+      }
+    ]
+  },
+  /**
   {
     path: '/tab',
     component: Layout,
@@ -234,7 +331,7 @@ export const asyncRoutes = [
       }
     ]
   },
-
+  **/
   {
     path: '/error',
     component: Layout,
@@ -309,7 +406,7 @@ export const asyncRoutes = [
       }
     ]
   },
-
+  /*
   {
     path: '/zip',
     component: Layout,
@@ -382,7 +479,7 @@ export const asyncRoutes = [
       }
     ]
   },
-
+  **/
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
