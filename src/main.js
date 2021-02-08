@@ -44,7 +44,7 @@ Object.keys(filters).forEach(key => {
 })
 
 Vue.config.productionTip = false
-
+Vue.prototype.$avinit = { value: false }
 new Vue({
   el: '#app',
   router,
