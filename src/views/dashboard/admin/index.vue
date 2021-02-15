@@ -74,14 +74,14 @@ export default {
   name: 'DashboardAdmin',
   components: {
     GithubCorner,
-    PanelGroup,
-    LineChart,
-    RaddarChart,
-    PieChart,
-    BarChart,
-    TransactionTable,
-    TodoList,
-    BoxCard
+    PanelGroup
+  //  LineChart,
+  //  RaddarChart,
+  //  PieChart,
+  //  BarChart,
+  //  TransactionTable,
+  //  TodoList,
+  //  BoxCard
   },
   data() {
     return {
