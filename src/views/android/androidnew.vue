@@ -24,7 +24,7 @@
       fixed="right"
       label="操作"
       width="150">
-      <template slot-scope="scope">
+      <template >
 
       </template>
     </el-table-column>
