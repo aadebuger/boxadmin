@@ -9,9 +9,9 @@
       </el-table-column>
   <el-table-column label="头像" width="100">>
 　　<template slot-scope="scope">
-　　　　<img :src="scope.row.imageurl" width="40" height="40" class="head_pic"/>
+　　　<img :src="scope.row.imageurl" width="40" height="40" class="head_pic"/>
 　　</template>
-</el-table-column>
+  </el-table-column>
       <el-table-column
         prop="androidid"
         label="手机标示"
