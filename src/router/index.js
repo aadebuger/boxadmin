@@ -132,6 +132,7 @@ export const constantRoutes = [
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [
+  /** *
   {
     path: '/permission',
     component: Layout,
@@ -173,6 +174,7 @@ export const asyncRoutes = [
       }
     ]
   },
+  **/
   /**
   {
     path: '/icon',
@@ -332,6 +334,7 @@ export const asyncRoutes = [
     ]
   },
   **/
+  /**
   {
     path: '/error',
     component: Layout,
@@ -356,7 +359,20 @@ export const asyncRoutes = [
       }
     ]
   },
-
+  **/
+  {
+    path: '/error-log',
+    component: Layout,
+    children: [
+      {
+        path: 'log',
+        component: () => import('@/views/error-log/alertlogs'),
+        name: 'ErrorLog',
+        meta: { title: '报警日志', icon: 'bug' }
+      }
+    ]
+  },
+  /**
   {
     path: '/error-log',
     component: Layout,
@@ -369,14 +385,14 @@ export const asyncRoutes = [
       }
     ]
   },
-
+**/
   {
     path: '/excel',
     component: Layout,
     redirect: '/excel/export-excel',
     name: 'Excel',
     meta: {
-      title: 'Excel',
+      title: '数据',
       icon: 'excel'
     },
     children: [
@@ -384,8 +400,9 @@ export const asyncRoutes = [
         path: 'export-excel',
         component: () => import('@/views/excel/export-excel'),
         name: 'ExportExcel',
-        meta: { title: 'Export Excel' }
+        meta: { title: '导出数据' }
       },
+      /** *
       {
         path: 'export-selected-excel',
         component: () => import('@/views/excel/select-excel'),
@@ -398,11 +415,12 @@ export const asyncRoutes = [
         name: 'MergeHeader',
         meta: { title: 'Merge Header' }
       },
+      **/
       {
         path: 'upload-excel',
         component: () => import('@/views/excel/upload-excel'),
         name: 'UploadExcel',
-        meta: { title: 'Upload Excel' }
+        meta: { title: '上传数据' }
       }
     ]
   },
