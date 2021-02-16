@@ -1,9 +1,9 @@
   <template>
     <el-table
-      :data="tableData"
+      :data="tableData" border fit highlight-current-row
       style="width: 100%">
       <el-table-column
-        prop="name"
+        prop="boxNumber"
         label="名字"
         width="180">
       </el-table-column>
@@ -29,7 +29,8 @@
       fixed="right"
       label="操作"
       width="150">
-      <template>
+      <template slot-scope="scope">
+         <el-button  @click="handlerunClick(scope.row)" type="text" size="small">开箱</el-button>
       </template>
     </el-table-column>
     </el-table>
@@ -47,13 +48,14 @@ export default {
       AV.init({
         appId: APP_ID,
         appKey: APP_KEY,
-        serverURLs: `http://localhost:7000`
+        serverURLs: this.$avhost.value
       })
       this.$avinit.value = true
       console.log(`Vue.prototype.$avinit`, this.$avinit)
     }
     var p = this
-    var query = new AV.Query('Androiddevice')
+    var query = new AV.Query('Box')
+    query.ascending('boxNumber')
     query.find().then(function (students) {
       // students 是包含满足条件的 Student 对象的数组
       console.log(`students=`, students)
@@ -63,7 +65,8 @@ export default {
         console.log('date1=', date1)
         console.log('id=', item.id)
         return {
-          name: item.get('name'),
+          boxNumber: item.get('boxNumber'),
+          id: item.id,
           serial: item.get('serial'),
           model: item.get('model'),
           device: item.get('device')
@@ -99,13 +102,26 @@ export default {
       this.$router.push({name: `unittest`, params: {name: row.name}})
     },
     handlerunClick: function (row) {
-      console.log('row=', row)
-      console.log('row=', row.name)
-      console.log('id=', row.id)
-      console.log(this.tableData)
-      // this.$router.push({name: `run`, params: {name: row.name}})
-      // window.open(`http://localhost:9081/view/pytests/job/pytestlr/`, '_blank')
-      this.$router.push({name: `editstudent`, params: {id: row.id}})
+  console.log('id=', row.id)
+        var p = this
+      const query = new AV.Query('Box');
+      query.get(row.id).then((todo) => {
+        console.log("todo",todo)
+        todo.set("action","open")
+        todo.save().then((todo) => {
+        // 成功保存之后，执行其他逻辑
+      
+        p.$message({
+          message: '同步请求成功',
+          type: 'success'
+        })
+      }, (error) => {
+        // 异常处理
+        console.log('save error', error)
+      })
+
+      });
+
     }
 
   },
@@ -117,7 +133,7 @@ export default {
       AV.init({
         appId: APP_ID,
         appKey: APP_KEY,
-        serverURLs: `http://localhost:7000`
+        serverURLs:  this.$avhost.value
       })
       this.$avinit.value = true
       console.log(`Vue.prototype.$avinit`, this.$avinit)
