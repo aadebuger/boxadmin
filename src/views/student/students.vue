@@ -1,6 +1,6 @@
   <template>
     <el-table
-      :data="tableData"
+      :data="tableData" border fit highlight-current-row
       style="width: 100%">
       <el-table-column
         prop="name"
@@ -46,7 +46,7 @@ export default {
       AV.init({
         appId: APP_ID,
         appKey: APP_KEY,
-        serverURLs: `http://localhost:7000`
+        serverURLs: this.$avhost.value
       })
       this.$avinit.value = true
       console.log(`Vue.prototype.$avinit`, this.$avinit)
@@ -89,15 +89,26 @@ export default {
   },
   methods: {
     handleClick: function (row) {
-      var query = new AV.Query('pytest')
-      query.equalTo('lastName', 'Smith')
-      query.find().then(function (students) {
-      // students 是包含满足条件的 Student 对象的数组
+       console.log('id=', row.id)
+        var p = this
+      const query = new AV.Query('Student');
+      query.get(row.id).then((todo) => {
+        console.log("todo",todo)
+        todo.set("syncing",1)
+        todo.save().then((todo) => {
+        // 成功保存之后，执行其他逻辑
+      
+        p.$message({
+          message: '同步请求成功',
+          type: 'success'
+        })
+      }, (error) => {
+        // 异常处理
+        console.log('save error', error)
       })
-      console.log('row=', row.name)
 
-      //      this.$router.push({ path: `/unittest/` + row.name })
-      this.$router.push({name: `unittest`, params: {name: row.name}})
+      });
+
     },
     handlerunClick: function (row) {
       console.log('row=', row)
@@ -106,7 +117,7 @@ export default {
       console.log(this.tableData)
       // this.$router.push({name: `run`, params: {name: row.name}})
       // window.open(`http://localhost:9081/view/pytests/job/pytestlr/`, '_blank')
-      this.$router.push({name: `editstudent`, params: {id: row.id}})
+      this.$router.push({name: `EditStudent`, params: {id: row.id}})
     }
 
   },
