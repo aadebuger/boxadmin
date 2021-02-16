@@ -1,17 +1,17 @@
 <template>
 <div>
-<el-form>
-  <el-form-item label="课程名称">
+<el-form  :model="lessonForm" :rules="rules" ref="lessonForm" >
+  <el-form-item label="课程名称" prop="name">
   <el-input
   type="textarea"
   :rows="2"
   placeholder="名称"
-  v-model="name">
+  v-model="lessonForm.name">
 </el-input>
   </el-form-item>
  <el-form-item label="课程日期">
 <el-date-picker
-      v-model="lm"
+      v-model="lessonForm.lm"
       type="date"
       placeholder="选择日期">
     </el-date-picker>
@@ -19,7 +19,7 @@
   <el-form-item label="时间">
 <el-time-select
     placeholder="起始时间"
-    v-model="startTime"
+    v-model="lessonForm.startTime"
     :picker-options="{
       start: '08:30',
       step: '00:15',
@@ -28,17 +28,17 @@
   </el-time-select>
   <el-time-select
     placeholder="结束时间"
-    v-model="endTime"
+    v-model="lessonForm.endTime"
     :picker-options="{
       start: '08:30',
       step: '00:15',
       end: '18:30',
-      minTime: startTime
+      minTime: lessonForm.startTime
     }">
   </el-time-select>
   </el-form-item>
   <el-form-item label="学员">
-  <el-transfer v-model="members" :data="memberdata"
+  <el-transfer v-model="lessonForm.members" :data="memberdata"
   :titles="['学员', '学生']"
   ></el-transfer>
   </el-form-item>
@@ -94,6 +94,7 @@ export default {
     }
     return {
       memberdata: generateData(),
+      lessonForm: {
       startTime: '09:00',
       endTime: '11:00',
       user: '',
@@ -102,6 +103,12 @@ export default {
       name: '',
       lm: '',
       members: []
+      },
+      rules: { name: [
+            { required: true, message: '请输入名字', trigger: 'blur' },
+            { min: 3, max: 20, message: '长度在 3 到 20 个字符', trigger: 'blur' }
+          ]
+      }
     }
   },
   methods: {
