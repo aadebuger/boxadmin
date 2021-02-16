@@ -245,9 +245,9 @@ export const asyncRoutes = [
       },
       {
         path: 'edit/:id(\\d+)',
-        component: () => import('@/views/lesson/edit'),
-        name: 'EditArticle',
-        meta: { title: 'Edit Article', noCache: true, activeMenu: '/example/list' },
+        component: () => import('@/views/lesson/editlesson'),
+        name: 'EditLesson',
+        meta: { title: 'Edit Lesson', noCache: true, activeMenu: '/example/list' },
         hidden: true
       },
       {
@@ -276,8 +276,8 @@ export const asyncRoutes = [
       },
       {
         path: 'edit/:id(\\d+)',
-        component: () => import('@/views/student/edit'),
-        name: 'EditArticle',
+        component: () => import('@/views/student/editstudent'),
+        name: 'EditStudent',
         meta: { title: 'Edit Article', noCache: true, activeMenu: '/example/list' },
         hidden: true
       },
@@ -317,6 +317,25 @@ export const asyncRoutes = [
         component: () => import('@/views/android/androiddevice'),
         name: 'ArticleList',
         meta: { title: '柜子手机列表', icon: 'list' }
+      }
+    ]
+  },
+  {
+    path: '/box',
+    component: Layout,
+    redirect: '/android/list',
+    name: 'Student',
+    meta: {
+      title: '柜子',
+      icon: 'el-icon-s-help'
+    },
+    children: [
+
+      {
+        path: 'list',
+        component: () => import('@/views/box/box'),
+        name: 'ArticleList',
+        meta: { title: '柜子列表', icon: 'list' }
       }
     ]
   },
