@@ -72,7 +72,8 @@ export default {
           lm: moment1.format('YYYY-MM-DD'),
           startTime: item.get('startTime'),
           endTime: item.get('endTime'),
-          address: 'home_tests'
+          address: 'home_tests',
+          id: item.id
         }
       })
 
@@ -105,10 +106,9 @@ export default {
       this.$router.push({name: `unittest`, params: {name: row.name}})
     },
     handlerunClick: function (row) {
-      console.log('row=', row.name)
-      // this.$router.push({name: `run`, params: {name: row.name}})
-      window.open(`http://localhost:9081/view/pytests/job/pytestlr/`, '_blank')
-    }
+      console.log('row id=', row.id)
+       this.$router.push({name: `EditLesson`, params: {id: row.id}})
+       }
 
   },
   mounted () {
