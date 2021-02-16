@@ -49,7 +49,7 @@ export default {
       AV.init({
         appId: APP_ID,
         appKey: APP_KEY,
-        serverURLs: `http://localhost:7000`
+        serverURLs: this.$avhost.value
       })
       this.$avinit.value = true
       console.log(`Vue.prototype.$avinit`, this.$avinit)
