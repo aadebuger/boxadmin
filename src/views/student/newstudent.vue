@@ -39,7 +39,8 @@
  <el-form-item label="照片" prop="imageUrl">
 <el-upload
   class="avatar-uploader"
-  action="http://localhost:7000/1.1/filesformminio/test.png"
+  :action="handleBeforeupload()"
+
   :show-file-list="false"
   :on-success="handleAvatarSuccess"
   :before-upload="beforeAvatarUpload">
@@ -135,12 +136,26 @@ export default {
     }
   },
   methods: {
+    handleBeforeupload()
+    {
+      return this.$uploadhost.value;
+    //  return "http://localhost:7000/1.1/filesformminio/test.png"
+    },
     onSearch () {
       console.log('onSearch')
     var p = this
     var query = new AV.Query('Androiddevicenew')
     query.first().then(function (device) {
       // students 是包含满足条件的 Student 对象的数组
+     if (typeof device === 'undefined') 
+     {
+        p.$message({
+          message: '未接手机,请连接手机后再试',
+          type: 'fail'
+        })
+       return 
+     }
+
       console.log(`students=`, device)
       console.log("name",device.get("name"))
       p.studentForm.deviceid = device.get('serial')
